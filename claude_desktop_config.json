@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "enterprise-server": {
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "--init",
+        "-e",
+        "DOCKER_CONTAINER=true",
+        "mcp/enterprise-server"
+      ]
+    }
+  }
+}
