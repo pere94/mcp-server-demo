@@ -1,67 +1,217 @@
-# 🚀 Servidor MCP Empresarial
+# � Dog MCP Server - FastMCP Edition
 
-Servidor MCP centralizado que funciona vía Docker + SSH. **Todos los empleados conectan sus Claude Desktop al mismo servidor** sin instalar nada.
+Servidor MCP simple y divertido construido con **FastMCP** que permite a Claude ladrar como un perro y hacer operaciones mágicas. ¡Perfecto para startups que buscan rapidez y simplicidad!
 
-## 🔑 Información de Conexión del Servidor
+## � Características
 
-**🖥️ SSH del Servidor:**
-- **Host:** localhost  
-- **Puerto:** 2222
-- **Usuario:** mcpuser
-- **Contraseña:** mcppass
-- **Comando completo:** `ssh mcpuser@localhost -p 2222`
-
----
-
-## ⚡ Para Empleados
-
-**Solo necesitas hacer esto UNA vez:**
-
-1. Lee `SETUP_GUIDE.md`
-2. Copia la configuración JSON 
-3. Pégala en Claude Desktop
-4. ¡Listo!
+- **🐶 Ladridos de perro** con diferentes intensidades
+- **🪄 Operaciones mágicas** (suma 15 a cualquier número)
+- **⚡ FastMCP** - Configuración simplificada
+- **🐳 Docker Ready** - Containerizado y listo para producción
+- **📝 Logging completo** para debugging
 
 ## 🏗️ Arquitectura
 
 ```
-Claude Desktop (Empleado) ──SSH──► Docker Container (Servidor Empresa)
-Claude Desktop (Empleado) ──SSH──► Docker Container (Servidor Empresa)  
-Claude Desktop (Empleado) ──SSH──► Docker Container (Servidor Empresa)
+Claude Desktop ──stdio──► FastMCP Server ──Docker──► Production
 ```
 
-- **Empleados**: Solo configuran Claude Desktop
-- **Servidor**: Todo centralizado en Docker
-- **Sin instalaciones**: Nada que instalar localmente
+- **FastMCP**: Framework simplificado para MCP
+- **Herramientas**: Decoradores `@mcp.tool()` automáticos
+- **Transporte**: stdio automático (sin configuración manual)
 
-## 🛠️ Para Administradores
+## ⚡ Instalación Rápida
+
+### Desarrollo Local
 
 ```bash
-# Desplegar servidor (solo una vez)
-./deploy.sh
+# 1. Instalar dependencias
+pip install mcp
 
-# Verificar que funciona
-./verify_deployment.sh
+# 2. Ejecutar servidor
+python enterprise_mcp_server.py
+
+# 3. Configurar Claude Desktop
+# Copia el JSON de configuración a tu Claude Desktop
+```
+
+### Con Docker (Recomendado para producción)
+
+```bash
+# 1. Usar script automatizado (Recomendado)
+chmod +x build_docker.sh
+./build_docker.sh
+
+# 2. O manualmente
+docker build -t dog-mcp-server .
+docker run --rm dog-mcp-server
+
+# 3. Con docker-compose
+docker-compose up -d
 ```
 
 ## 🎯 Herramientas Disponibles
 
-- **👥 Usuarios**: Crear, consultar, actualizar, eliminar
-- **📊 Proyectos**: Gestión completa de proyectos
-- **📁 Archivos**: Operaciones de archivos
-- **🏢 Empresariales**: Reportes, notificaciones, backups, auditorías
+### � `bark_like_dog`
+Hace que el servidor ladre como un perro con diferentes intensidades.
 
-## 📁 Archivos Importantes
+**Parámetros:**
+- `intensity` (string): "soft", "normal", "loud"
 
-- **`SETUP_GUIDE.md`** - Instrucciones para empleados
-- **`claude_desktop_config_final.json`** - Configuración para copiar
-- **`deploy.sh`** - Despliega el servidor
-- **`verify_deployment.sh`** - Verifica que funciona
+**Ejemplos:**
+- `intensity: "soft"` → "woof woof 🐕"
+- `intensity: "normal"` → "Woof! Woof! 🐶"
+- `intensity: "loud"` → "WOOF WOOF WOOF! 🐕‍🦺 BARK BARK!"
 
-## 🆘 Problemas?
+### 🪄 `magic_tool`
+Suma 15 a cualquier número de forma "mágica".
 
-- **Container no funciona?** → `./verify_deployment.sh`
-- **Claude no conecta?** → Revisar `SETUP_GUIDE.md`
+**Parámetros:**
+- `number` (float): El número al que se le sumará 15
+
+**Ejemplo:**
+- `number: 25` → "Resultado mágico: 25 + 15 = 40 ✨"
+
+## � Configuración Claude Desktop
+
+Agrega esta configuración a tu `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "dog-server": {
+      "command": "python",
+      "args": ["/ruta/absoluta/a/enterprise_mcp_server.py"],
+      "env": {
+        "PYTHONPATH": "/ruta/absoluta/a/tu/proyecto"
+      }
+    }
+  }
+}
+```
+
+## 📁 Estructura del Proyecto
+
+```
+mcp-server-demo/
+├── enterprise_mcp_server.py    # 🐕 Servidor principal (FastMCP)
+├── old-enterprise_mcp_server.py # 📜 Versión anterior (manual)
+├── build_docker.sh             # 🐳 Script de construcción Docker
+├── Dockerfile                   # 🐳 Configuración Docker
+├── docker-compose.yml          # 🚀 Docker Compose
+├── pyproject.toml              # 📦 Configuración del proyecto
+├── uv.lock                     # 🔒 Lock de dependencias
+├── claude_desktop_config.json  # ⚙️ Configuración Claude
+└── README.md                   # 📖 Esta documentación
+```
+
+## 💻 Desarrollo
+
+### Código FastMCP (Actual)
+
+```python
+from mcp.server.fastmcp import FastMCP
+
+mcp = FastMCP("dog-server")
+
+@mcp.tool()
+async def bark_like_dog(intensity: str = "normal") -> str:
+    """Ladra como un perro"""
+    if intensity == "soft":
+        return "woof woof 🐕"
+    elif intensity == "loud":
+        return "WOOF WOOF WOOF! 🐕‍🦺"
+    else:
+        return "Woof! Woof! 🐶"
+
+if __name__ == "__main__":
+    mcp.run()
+```
+
+### Ventajas de FastMCP
+
+- ✅ **50% menos código** que configuración manual
+- ✅ **Decoradores simples** `@mcp.tool()`
+- ✅ **Manejo automático** de transporte y esquemas
+- ✅ **Type hints automáticos** para validación
+- ✅ **Perfecto para startups** - desarrollo rápido
+
+## 🛠️ Scripts Disponibles
+
+### � Build Docker (Automatizado)
+
+```bash
+# Script principal para Docker
+chmod +x build_docker.sh
+./build_docker.sh
+```
+
+**El script `build_docker.sh` hace:**
+- ✅ Construye la imagen Docker automáticamente
+- ✅ Tagea con versión y `latest`
+- ✅ Ejecuta tests básicos de la imagen
+- ✅ Muestra información de la imagen creada
+- ✅ Opciones para push a registry
+
+### 🚀 Deploy y Testing
+
+```bash
+# Crear script de despliegue personalizado
+chmod +x deploy.sh && ./deploy.sh
+
+# Test local directo
+python enterprise_mcp_server.py
+```
+
+### 🐳 Docker Commands
+
+```bash
+# Usar script automatizado (Recomendado)
+./build_docker.sh
+
+# Desarrollo con compose
+docker-compose up -d
+
+# Producción directa
+docker run --rm dog-mcp-server
+
+# Ver logs
+docker logs dog-mcp-server
+
+# Rebuild completo
+./build_docker.sh --clean
+```
+
+## 🆘 Troubleshooting
+
+### Problemas Comunes
+
+| Problema | Solución |
+|----------|----------|
+| `ModuleNotFoundError: No module named 'mcp'` | `pip install mcp` |
+| Claude no conecta | Verificar ruta absoluta en config |
+| Docker no inicia | `docker-compose logs` |
+| Puerto ocupado | Cambiar puerto en docker-compose.yml |
+
+### Debug Mode
+
+```bash
+# Logs detallados
+export LOG_LEVEL=DEBUG
+python enterprise_mcp_server.py
+
+# O en Docker
+docker run -e LOG_LEVEL=DEBUG dog-mcp-server
+```
+
+## 📚 Recursos
+
+- **[MCP Documentation](https://docs.mcp.dev)** - Documentación oficial
+- **[FastMCP Guide](https://docs.mcp.dev/quickstart/fastmcp)** - Guía FastMCP
+- **[Claude Desktop Setup](https://docs.anthropic.com/claude/docs/mcp-setup)** - Configuración Claude
 
 ---
-**Todo configurado y listo para usar** ✅
+
+**🎉 ¡Servidor MCP listo para tu startup!** 
+
+*Construido con ❤️ usando FastMCP - La forma más rápida de crear servidores MCP*
