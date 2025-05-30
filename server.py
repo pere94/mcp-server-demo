@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-Servidor MCP Simple con FastMCP - Solo ladra como un perro
+Servidor MCP Simple con FastMCP - Herramienta para buscar productos en Amazon
+========================================================
 """
 
 import logging
