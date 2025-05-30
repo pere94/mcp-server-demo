@@ -11,7 +11,6 @@ COPY server.py pyproject.toml .env ./
 COPY libs/ ./libs/
 COPY tools/ ./tools/
 COPY utils/ ./utils/
-COPY agents/ ./agents/
 
 # Instalar dependencias MCP
 RUN pip install --no-cache-dir mcp pydantic click python-amazon-paapi \
