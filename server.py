@@ -66,7 +66,10 @@ async def tool_magic(number: float) -> str:
         logger.error(error_msg)
         return error_msg
 
-@mcp.tool()
+@mcp.tool(
+    name="tool_amazon_search_discovery",
+    description="Performs a search on Amazon using the Amazon search agent. Does not modify the user query.",
+)
 async def tool_amazon_search_discovery(user_query: str) -> str:
     """
     Realiza una búsqueda en Amazon (search_items) utilizando el agente de búsqueda de Amazon.
