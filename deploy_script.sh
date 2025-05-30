@@ -15,8 +15,9 @@ echo "================================================================"
 # Variables - Se pueden configurar con variables de entorno
 GITHUB_USERNAME="${GITHUB_USERNAME:-}"
 GITHUB_TOKEN="${GITHUB_TOKEN:-}"
-REPO_NAME="${REPO_NAME:-mcp-server-demo}"
-IMAGE_LOCAL="${IMAGE_LOCAL:-mcp/mcp-server-demo}"
+REPO_NAME="${REPO_NAME:-mcp_amazon_affiliate}"
+MCP_NAME="${MCP_NAME:-mcp_amazon_affiliate}"
+IMAGE_LOCAL="${IMAGE_LOCAL:-mcp/${MCP_NAME}}"
 
 echo -e "${BLUE}🔧 Configuración detectada:${NC}"
 echo -e "   REPO_NAME: ${REPO_NAME}"
@@ -55,14 +56,23 @@ check_docker() {
 }
 
 # Verificar imagen local
+# Esto se hace para asegurarnos de que la imagen local existe antes de intentar subirla
+# Si no existe la creamos
 check_local_image() {
     echo -e "${BLUE}🔍 Verificando imagen local '${IMAGE_LOCAL}'...${NC}"
     if ! docker images | grep -q "$IMAGE_LOCAL"; then
-        echo -e "${RED}❌ Imagen local '$IMAGE_LOCAL' no encontrada.${NC}"
-        echo -e "${YELLOW}💡 Construye la imagen primero o cambia IMAGE_LOCAL en el script${NC}"
-        exit 1
+        echo -e "${YELLOW}⚠️ Imagen local '$IMAGE_LOCAL' no encontrada.${NC}"
+        echo -e "${BLUE}� Construyendo imagen automáticamente...${NC}"
+        
+        if docker build -t "$IMAGE_LOCAL" .; then
+            echo -e "${GREEN}✅ Imagen construida exitosamente${NC}"
+        else
+            echo -e "${RED}❌ Error construyendo la imagen${NC}"
+            exit 1
+        fi
+    else
+        echo -e "${GREEN}✅ Imagen local encontrada${NC}"
     fi
-    echo -e "${GREEN}✅ Imagen local encontrada${NC}"
 }
 
 # Login a GHCR
@@ -111,7 +121,7 @@ generate_employee_config() {
     echo -e "${BLUE}📄 Generando configuración para empleados...${NC}"
     
     # JSON de configuración para empleados
-    cat > claude_desktop_config.json << EOF
+    cat > ./DOC/claude_desktop_config.json << EOF
 {
   "mcpServers": {
     "enterprise-server": {
@@ -140,7 +150,7 @@ show_final_info() {
     echo -e "${GREEN}claude_desktop_config.json${NC}"
     echo
     echo -e "${YELLOW}📝 Contenido del JSON:${NC}"
-    cat claude_desktop_config.json
+    cat ./DOC/claude_desktop_config.json
     echo
     echo -e "${YELLOW}📍 Los empleados deben copiarlo a:${NC}"
     echo "~/.config/claude-desktop/claude_desktop_config.json"

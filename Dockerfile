@@ -5,7 +5,13 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # Copiar archivos esenciales
-COPY server.py pyproject.toml libs tools utils agents ./
+COPY server.py pyproject.toml ./
+
+# Copiar directorios
+COPY libs/ ./libs/
+COPY tools/ ./tools/
+COPY utils/ ./utils/
+COPY agents/ ./agents/
 
 # Instalar dependencias MCP
 RUN pip install --no-cache-dir mcp pydantic click python-amazon-paapi \
