@@ -1,6 +1,16 @@
 import os
 import sys
 import json
+import logging
+
+# Configure logging to stderr at module level
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    stream=sys.stderr,
+    force=True
+)
+logger = logging.getLogger(__name__)
 
 # Add the project root directory to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -218,19 +228,19 @@ def tool_amazon_search_items(
                 eans=_eans
             )
             if only_with_ean and len(_eans) == 0:
-                print(f"Skipping item (ASIN: {pretty_item.asin}) due to no EANs.")
+                logger.info(f"Skipping item (ASIN: {pretty_item.asin}) due to no EANs.")
                 continue
             pretty_response.append(pretty_item.to_dict())
         if not pretty_response:
-            print("No items found for the given search criteria.")
+            logger.info("No items found for the given search criteria.")
             return []
         else:
-            print(f"Found {len(pretty_response)} items matching the search criteria.")
+            logger.info(f"Found {len(pretty_response)} items matching the search criteria.")
             return pretty_response
 
     except Exception as e:
         # Handle exceptions and return an empty SearchResult
-        print(f"Error during Amazon search: {e}")
+        logger.error(f"Error during Amazon search: {e}")
         return []
     
 
@@ -272,8 +282,7 @@ if __name__ == "__main__":
     result = tool_amazon_search_items(
         keywords="smart home",
     )
-    print(result)
+    logger.info(result)
     
     # The detailed information is already printed by the function
-    print(f"\nFunction returned {len(result)} products as AmazonProductPrettyResponse objects.")
-    
+    logger.info(f"\nFunction returned {len(result)} products as AmazonProductPrettyResponse objects.")

@@ -5,6 +5,7 @@ Enhanced singleton implementation for better error handling, caching, and functi
 
 import os
 import logging
+import sys
 from typing import List, Dict, Any, Optional, Union
 from dataclasses import asdict
 from amazon_paapi import AmazonApi
@@ -18,9 +19,22 @@ from .models import SearchIndex
 # Load environment variables from .env file
 dotenv.load_dotenv()
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
+# Configure logging to stderr ONLY - critical for MCP servers
+logging.basicConfig(
+    level=logging.ERROR,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    stream=sys.stderr,
+    force=True
+)
 logger = logging.getLogger(__name__)
+
+# Ensure this module's logger goes to stderr
+logger.handlers.clear()
+stderr_handler = logging.StreamHandler(sys.stderr)
+stderr_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
+logger.addHandler(stderr_handler)
+logger.setLevel(logging.ERROR)
+logger.propagate = False
 
 
 

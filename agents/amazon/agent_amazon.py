@@ -1,5 +1,15 @@
 import os
 import sys
+import logging
+
+# Configure logging to stderr at module level
+logging.basicConfig(
+    level=logging.ERROR,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    stream=sys.stderr,
+    force=True
+)
+logger = logging.getLogger(__name__)
 
 # Add the project root directory to the Python path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -145,7 +155,7 @@ agent_amazon = Agent(
     markdown=True,
     show_tool_calls=True,
     add_datetime_to_instructions=True,
-    debug_mode=True,
+    debug_mode=False,  # IMPORTANTE: Desactivar debug_mode para evitar contaminar stdout
 )
 
 if __name__ == "__main__":
@@ -153,7 +163,7 @@ if __name__ == "__main__":
     os.system('cls' if os.name == 'nt' else 'clear')
 
     # Code Example Test
-    print("Running Amazon API Search Agent...")
+    logger.info("Running Amazon API Search Agent...")
     def agent_runner(new: bool = False, user: str = "user"):
         # session_id: Optional[str] = None
         
