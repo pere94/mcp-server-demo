@@ -10,7 +10,7 @@ fi
 
 # Construir la imagen si no existe
 echo "🔨 Construyendo imagen Docker..."
-docker build -t mcp/enterprise-server .
+docker build -t mcp/mcp-server-demo .
 
 if [ $? -eq 0 ]; then
     echo "✅ Imagen construida exitosamente"
@@ -21,7 +21,7 @@ fi
 
 # Probar el contenedor (debe responder a stdin/stdout)
 echo "🧪 Probando comunicación MCP..."
-echo '{"jsonrpc": "2.0", "method": "tools/list", "id": 1}' | docker run -i --rm mcp/enterprise-server
+echo '{"jsonrpc": "2.0", "method": "tools/list", "id": 1}' | docker run -i --rm mcp/mcp-server-demo
 
 echo ""
 echo "📋 Configuración para Claude Desktop:"
