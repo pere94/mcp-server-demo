@@ -76,6 +76,10 @@ agent_amazon = Agent(
     instructions=dedent("""\
         🎯 YOUR MISSION: Search for products on Amazon using the provided keywords and return ALL API results with processed features.
         RESPONSE LANGUAGE: Spanish
+                        
+        0. Search Query
+            - Use the user's query in the best way possible, even if you have to modify it a bit.
+            - You can generate extra parameters in the tools to refine searches.
 
         1. Product Search Tools 🔍
             - Use the tool_amazon_search_items tool to search for products

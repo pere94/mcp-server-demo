@@ -56,45 +56,45 @@ def tool_amazon_search_items(
     Args:
         keywords (str): Keywords to search for.
         search_index (str): The category to search in (default is "All").
-            - (str) "All" - Translate: Todos los departamentos
-            - (str) "AlexaSkills" - Translate: "Alexa Skills"
-            - (str) "AmazonVideo" - Translate: "Prime Video"
-            - (str) "Appliances" - Translate: "Grandes electrodomésticos"
-            - (str) "AppsGames" - Translate: "Appstore para Android"
-            - (str) "Automotive" - Translate: "Coche y moto"
-            - (str) "Baby" - Translate: "Bebé"
-            - (str) "Beauty" - Translate: "Belleza"
-            - (str) "Books" - Translate: "Libros"
-            - (str) "Classical" - Translate: "Música clásica"
-            - (str) "ClothingAccessories" - Translate: "Ropa y accesorios"
-            - (str) "Collectibles" - Translate: "Coleccionables"
-            - (str) "Computers" - Translate: "Informática"
-            - (str) "DigitalMusic" - Translate: "Música Digital"
-            - (str) "Electronics" - Translate: "Electrónica"
-            - (str) "EverythingElse" - Translate: "Otros Productos"
-            - (str) "Fashion" - Translate: "Moda"
-            - (str) "GardenAndOutdoor" - Translate: "Jardín"
-            - (str) "GiftCards" - Translate: "Cheques regalo"
-            - (str) "GroceryAndGourmetFood" - Translate: "Alimentación y bebidas"
-            - (str) "Handmade" - Translate: "Handmade"
-            - (str) "HealthPersonalCare" - Translate: "Salud y cuidado personal"
-            - (str) "HomeAndKitchen" - Translate: "Hogar y cocina"
-            - (str) "Industrial" - Translate: "Industria y ciencia"
-            - (str) "KindleStore" - Translate: "Tienda Kindle"
-            - (str) "Luggage" - Translate: "Equipaje"
-            - (str) "LuxuryBeauty" - Translate: "Belleza de lujo"
-            - (str) "Magazines" - Translate: "Revistas"
-            - (str) "MoviesTV" - Translate: "Películas y TV"
-            - (str) "Music" - Translate: "Música"
-            - (str) "MusicalInstruments" - Translate: "Instrumentos musicales"
-            - (str) "OfficeProducts" - Translate: "Oficina y papelería"
-            - (str) "PetSupplies" - Translate: "Productos para mascotas"
-            - (str) "Photo" - Translate: "Fotografía"
-            - (str) "Software" - Translate: "Software"
-            - (str) "SportsOutdoors" - Translate: "Deportes y aire libre"
-            - (str) "ToolsAndHomeImprovement" - Translate: "Bricolaje y herramientas"
-            - (str) "ToysAndGames" - Translate: "Juguetes y juegos"
-            - (str) "VideoGames" - Translate: "Videojuegos"
+            - (str) "All": Translate: Todos los departamentos
+            - (str) "AmazonVideo": Translate: Prime Video
+            - (str) "Apparel": Translate: Ropa y accesorios
+            - (str) "Appliances": Translate: Grandes electrodomésticos
+            - (str) "Automotive": Translate: Coche y moto
+            - (str) "Baby": Translate: Bebé
+            - (str) "Beauty": Translate: Belleza
+            - (str) "Books": Translate: Libros
+            - (str) "Computers": Translate: Informática
+            - (str) "DigitalMusic": Translate: Música Digital
+            - (str) "Electronics": Translate: Electrónica
+            - (str) "EverythingElse": Translate: Otros Productos
+            - (str) "Fashion": Translate: Moda
+            - (str) "ForeignBooks": Translate: Libros en idiomas extranjeros
+            - (str) "GardenAndOutdoor": Translate: Jardín
+            - (str) "GiftCards": Translate: Cheques regalo
+            - (str) "GroceryAndGourmetFood": Translate: Alimentación y bebidas
+            - (str) "Handmade": Translate: Handmade
+            - (str) "HealthPersonalCare": Translate: Salud y cuidado personal
+            - (str) "HomeAndKitchen": Translate: Hogar y cocina
+            - (str) "Industrial": Translate: Industria y ciencia
+            - (str) "Jewelry": Translate: Joyería
+            - (str) "KindleStore": Translate: Tienda Kindle
+            - (str) "Lighting": Translate: Iluminación
+            - (str) "Luggage": Translate: Equipaje
+            - (str) "MobileApps": Translate: Appstore para Android
+            - (str) "MoviesAndTV": Translate: Películas y TV
+            - (str) "Music": Translate: Música: CDs y vinilos
+            - (str) "MusicalInstruments": Translate: Instrumentos musicales
+            - (str) "OfficeProducts": Translate: Oficina y papelería
+            - (str) "PetSupplies": Translate: Productos para mascotas
+            - (str) "Shoes": Translate: Zapatos y complementos
+            - (str) "Software": Translate: Software
+            - (str) "SportsAndOutdoors": Translate: Deportes y aire libre
+            - (str) "ToolsAndHomeImprovement": Translate: Bricolaje y herramientas
+            - (str) "ToysAndGames": Translate: Juguetes y juegos
+            - (str) "Vehicles": Translate: Coche - renting
+            - (str) "VideoGames": Translate: Videojuegos
+            - (str) "Watches": Translate: Relojes
         item_count (int): Number of items to return (default is 10, maximum is 10 due to Amazon API limitations).
         sort_by (SortBy): Sorting criteria for the results (default is SortBy.RELEVANCE).
             - (str) "AvgCustomerReviews": Sorts results according to average customer reviews
